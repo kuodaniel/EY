@@ -6,8 +6,10 @@ between two rectangles: intersection, containment, and adjacency.
 ## Requirements
 
 - JDK 17 or later with both `java` and `javac` on your PATH.
-- A terminal with a POSIX-compatible shell, such as Bash or Zsh.
+- A POSIX-compatible shell, such as Bash or Zsh, for the commands below.
 - The demo and tests use only the Java standard library.
+
+The demo and tests were verified on Linux with JDK 17.
 
 Check your JDK before building.
 
@@ -25,6 +27,10 @@ mkdir -p build && \
 javac --release 17 -d build src/main/java/rectangles/*.java && \
 java -cp build rectangles.RectangleDemo
 ```
+
+The demo uses two rectangles that share part of a side. The shared
+segment runs from `(4, 1)` to `(4, 3)`, neither rectangle contains the
+other, and the adjacency is `SUB_LINE`.
 
 ## Run the Tests
 
@@ -106,29 +112,28 @@ two rectangles.
 
 ### Intersection
 
-Determines whether the boundaries of two rectangles intersect
-and returns their distinct intersection points, sorted by x and then y.
+`first.intersectionPoints(second)` returns the distinct points where
+the boundaries meet, sorted by x and then y.
 A shared segment is represented by its two endpoints. A corner touch
 returns one point. Strict nesting returns an empty list.
 
 ### Containment
 
-Determines whether one rectangle is completely contained within
-another by comparing their coordinate boundaries. A rectangle may
-touch the containing rectangle’s boundary, and equal rectangles
-contain each other.
+`first.contains(second)` checks whether the first rectangle wholly
+contains the second. A rectangle may touch the containing rectangle’s
+boundary, and equal rectangles contain each other.
 
 ### Adjacency
 
-Determines whether two rectangles share a side segment of positive
-length with their interiors on opposite sides of that segment.
-Classifies the relationship as:
+`first.adjacency(second)` checks for a shared side segment of positive
+length with the rectangle interiors on opposite sides of that segment.
+It returns one of four values.
 
-- **Proper:** Both sides match completely.
-- **Sub-line:** One side is completely contained within a longer side.
-- **Partial:** Two sides partially overlap, but neither fully
-  contains the other.
-- **None:** No shared line segment of positive length.
+- `PROPER` means both sides match completely.
+- `SUB_LINE` means one side is completely contained within a longer side.
+- `PARTIAL` means the sides overlap along a segment shorter than either side.
+- `NONE` means there is no qualifying shared segment. Corner-only contact
+  and rectangles with overlapping interiors fall into this category.
 
 ## AI Usage
 
