@@ -107,12 +107,16 @@ javac --release 17 -d build src/main/java/rectangles/*.java
 java -cp build rectangles.RectangleDemo
 ```
 
-Compile and run the unit tests after compiling the main classes:
+Run the unit tests from the repository root. This command also compiles
+the main classes, so it works on a fresh checkout.
 
 ```sh
-javac --release 17 -cp build -d build src/test/java/rectangles/*.java
+mkdir -p build && \
+javac --release 17 -d build src/main/java/rectangles/*.java src/test/java/rectangles/*.java && \
 java -cp build rectangles.RectangleTest
 ```
+
+On success, the tests print `All 5 rectangle test groups passed.`
 
 ## AI Usage
 
