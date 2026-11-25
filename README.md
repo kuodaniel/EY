@@ -60,17 +60,22 @@ two rectangles.
 ### Intersection
 
 Determines whether the boundaries of two rectangles intersect
-and returns their intersection points.
+and returns their distinct intersection points, sorted by x and then y.
+A shared segment is represented by its two endpoints. A corner touch
+returns one point. Strict nesting returns an empty list.
 
 ### Containment
 
 Determines whether one rectangle is completely contained within
-another by comparing their coordinate boundaries.
+another by comparing their coordinate boundaries. A rectangle may
+touch the containing rectangle’s boundary, and equal rectangles
+contain each other.
 
 ### Adjacency
 
-Determines whether two rectangles share a side and classifies
-the relationship as:
+Determines whether two rectangles share a side segment of positive
+length with their interiors on opposite sides of that segment.
+Classifies the relationship as:
 
 - **Proper:** Both sides match completely.
 - **Sub-line:** One side is completely contained within a longer side.
@@ -80,7 +85,7 @@ the relationship as:
 
 ## Testing
 
-Unit tests will cover the following scenarios:
+Unit tests cover the following scenarios:
 
 - Valid and invalid rectangle coordinates
 - Negative coordinates
@@ -93,7 +98,21 @@ Unit tests will cover the following scenarios:
 
 ## Build and Run
 
-TBD.
+Use JDK 17 or later. The implementation and tests have no external
+dependencies. From the repository root, compile and run the demo:
+
+```sh
+mkdir -p build
+javac --release 17 -d build src/main/java/rectangles/*.java
+java -cp build rectangles.RectangleDemo
+```
+
+Compile and run the unit tests after compiling the main classes:
+
+```sh
+javac --release 17 -cp build -d build src/test/java/rectangles/*.java
+java -cp build rectangles.RectangleTest
+```
 
 ## AI Usage
 
