@@ -3,6 +3,53 @@
 A Java implementation for determining the geometric relationships
 between two rectangles: intersection, containment, and adjacency.
 
+## Requirements
+
+- JDK 17 or later with both `java` and `javac` on your PATH.
+- A terminal with a POSIX-compatible shell, such as Bash or Zsh.
+- The demo and tests use only the Java standard library.
+
+Check your JDK before building.
+
+```sh
+java -version
+javac -version
+```
+
+## Run the Demo
+
+From the repository root, compile and run the demo.
+
+```sh
+mkdir -p build && \
+javac --release 17 -d build src/main/java/rectangles/*.java && \
+java -cp build rectangles.RectangleDemo
+```
+
+## Run the Tests
+
+Run the unit tests from the repository root. This command also compiles
+the main classes, so it works on a fresh checkout.
+
+```sh
+mkdir -p build && \
+javac --release 17 -d build src/main/java/rectangles/*.java src/test/java/rectangles/*.java && \
+java -cp build rectangles.RectangleTest
+```
+
+On success, the tests print `All 5 rectangle test groups passed.`
+
+Unit tests cover these scenarios.
+
+- Valid and invalid rectangle coordinates
+- Negative coordinates
+- Intersecting and non-intersecting rectangles
+- Containment
+- Proper, sub-line, and partial adjacency
+- Identical rectangles
+- Corner contact
+- Shared boundaries
+
 ## Assumptions
 
 - Rectangles are axis-aligned within a 2D Cartesian coordinate system.
@@ -82,41 +129,6 @@ Classifies the relationship as:
 - **Partial:** Two sides partially overlap, but neither fully
   contains the other.
 - **None:** No shared line segment of positive length.
-
-## Testing
-
-Unit tests cover the following scenarios:
-
-- Valid and invalid rectangle coordinates
-- Negative coordinates
-- Intersecting and non-intersecting rectangles
-- Containment
-- Proper, sub-line, and partial adjacency
-- Identical rectangles
-- Corner contact
-- Shared boundaries
-
-## Build and Run
-
-Use JDK 17 or later. The implementation and tests have no external
-dependencies. From the repository root, compile and run the demo:
-
-```sh
-mkdir -p build
-javac --release 17 -d build src/main/java/rectangles/*.java
-java -cp build rectangles.RectangleDemo
-```
-
-Run the unit tests from the repository root. This command also compiles
-the main classes, so it works on a fresh checkout.
-
-```sh
-mkdir -p build && \
-javac --release 17 -d build src/main/java/rectangles/*.java src/test/java/rectangles/*.java && \
-java -cp build rectangles.RectangleTest
-```
-
-On success, the tests print `All 5 rectangle test groups passed.`
 
 ## AI Usage
 
